@@ -15,3 +15,6 @@
 
 # If the VM crashes, it generates a dump, let's ignore it too.
 erl_crash.dump
+
+# The upload.sh generated script can have user-specific details
+upload.sh
