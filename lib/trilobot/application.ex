@@ -32,9 +32,7 @@ defmodule Trilobot.Application do
 
   def children(_target) do
     [
-      # Children for all targets except host
-      # Starts a worker by calling: Trilobot.Worker.start_link(arg)
-      # {Trilobot.Worker, arg},
+      {Trilobot.Buttons, nil}
     ]
   end
 
