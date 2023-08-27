@@ -64,6 +64,7 @@ defmodule Trilobot.Motors do
 
   defp set_speed(%__MODULE__{} = motors, p_pin, n_pin, speed) do
     speed = max(min(speed, 1.0), -1.0)
+
     cond do
       speed > 0.0 ->
         :ok = Pwm.gpio_pwm(p_pin, 255 - trunc(speed * 255))
@@ -77,6 +78,7 @@ defmodule Trilobot.Motors do
         :ok = Pwm.gpio_pwm(p_pin, 255)
         :ok = Pwm.gpio_pwm(n_pin, 255)
     end
+
     motors
   end
 end

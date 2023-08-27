@@ -11,13 +11,19 @@ defmodule Trilobot.Buttons do
   @x_led_pin 17
   @y_led_pin 27
 
-  @button_to_pins %{
+  @button_pins_to_led_names %{
     @a_button_pin => :a_led,
     @b_button_pin => :b_led,
     @x_button_pin => :x_led,
     @y_button_pin => :y_led
   }
 
+  @button_pins_to_button_names %{
+    @a_button_pin => :a,
+    @b_button_pin => :b,
+    @x_button_pin => :x,
+    @y_button_pin => :y
+  }
 
   def start_link(nil) do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
@@ -54,8 +60,9 @@ defmodule Trilobot.Buttons do
 
   # when we get a 0 value that means the button is pressed
   # a 1 value means the button was released
-  def handle_info({:circuits_gpio, pin, _ts, value} = message, state) do
-    key = Map.get(@button_to_pins, pin)
+  def handle_info({:circuits_gpio, pin, _ts, value}, state) do
+    log_pin_change(pin, value)
+    key = Map.get(@button_pins_to_led_names, pin)
     led = Map.get(state, key)
     led_value = if value == 0, do: 1, else: 0
     :ok = GPIO.write(led, led_value)
@@ -66,5 +73,12 @@ defmodule Trilobot.Buttons do
     require Logger
     Logger.error("#{__MODULE__} received an unexpected message: #{inspect(message)}")
     {:noreply, state}
+  end
+
+  defp log_pin_change(pin, value) do
+    require Logger
+    pin = Map.get(@button_pins_to_button_names, pin)
+    event = if value == 0, do: :pressed, else: :released
+    Logger.info("pin #{pin} #{event}")
   end
 end
