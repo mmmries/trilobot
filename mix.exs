@@ -70,8 +70,8 @@ defmodule Trilobot.MixProject do
       {:nerves_system_x86_64, "~> 1.19", runtime: false, targets: :x86_64},
       {:nerves_system_grisp2, "~> 0.3", runtime: false, targets: :grisp2},
       {:nerves_system_mangopi_mq_pro, "~> 0.4", runtime: false, targets: :mangopi_mq_pro},
-
       {:circuits_gpio, "~> 1.1"},
+      {:circuits_i2c, "~> 2.0"},
       {:pigpiox, "~> 0.1.2"}
     ]
   end
