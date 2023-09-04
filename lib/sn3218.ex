@@ -60,7 +60,7 @@ defmodule SN3218 do
     I2C.write(i2c, @i2c_addr, <<@cmd_enable_leds, 0xFF, 0xFF, 0x03>>)
   end
 
-  def set(i2c, channel, byte) when channel in 0..17 and byte in 0..255 do
+  def set(i2c, channel, byte) when channel in 1..18 and byte in 0..255 do
     I2C.write(i2c, @i2c_addr, <<@cmd_set_pwm_values + channel, byte>>)
   end
 
