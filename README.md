@@ -23,6 +23,12 @@ mix deps.get
 MIX_TARGET=rpi3a SSID=MyWifi PSK=WifiPassword mix firmware.burn
 ```
 
-> Note: You'll want to adjust the `MIX_TARGET` if you're not using a pi zero2. And you'll definitely want to adjust the `SSID` and `PSK` to set your wifi credentials.
+> Note: You'll want to adjust the `MIX_TARGET` if you're not using a pi zero 2. And you'll definitely want to adjust the `SSID` and `PSK` to set your wifi credentials.
 
 You'll see a confirmation that the SD card has been succesfully written and then put it into the raspberry pi on your boot and power it up.
+When you change your code, you can update the bot by running:
+
+```
+MIX_TARGET=rpi3a SSID=MyWifi PSK=WifiPassword mix firmware.burn
+MIX_TARGET=rpi3a ./upload.sh
+```
