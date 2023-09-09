@@ -32,7 +32,9 @@ defmodule Trilobot.Application do
 
   def children(_target) do
     [
-      {Trilobot.Buttons, nil}
+      {PropertyTable, name: Trilobot.ButtonTable},
+      {Trilobot.Buttons, nil},
+      {Trilobot.RGB, nil}
     ]
   end
 

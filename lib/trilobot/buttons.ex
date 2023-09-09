@@ -2,6 +2,8 @@ defmodule Trilobot.Buttons do
   use GenServer
   alias Circuits.GPIO
 
+  @table Trilobot.ButtonTable
+
   @a_button_pin 5
   @b_button_pin 6
   @x_button_pin 16
@@ -19,10 +21,10 @@ defmodule Trilobot.Buttons do
   }
 
   @button_pins_to_button_names %{
-    @a_button_pin => :a,
-    @b_button_pin => :b,
-    @x_button_pin => :x,
-    @y_button_pin => :y
+    @a_button_pin => "a",
+    @b_button_pin => "b",
+    @x_button_pin => "x",
+    @y_button_pin => "y"
   }
 
   def start_link(nil) do
@@ -43,6 +45,11 @@ defmodule Trilobot.Buttons do
     {:ok, b_led} = GPIO.open(@b_led_pin, :output, initial_value: 0)
     {:ok, x_led} = GPIO.open(@x_led_pin, :output, initial_value: 0)
     {:ok, y_led} = GPIO.open(@y_led_pin, :output, initial_value: 0)
+
+    PropertyTable.put(@table, ["button", "a"], :released)
+    PropertyTable.put(@table, ["button", "b"], :released)
+    PropertyTable.put(@table, ["button", "c"], :released)
+    PropertyTable.put(@table, ["button", "d"], :released)
 
     state = %{
       a_button: a_button,
@@ -77,8 +84,9 @@ defmodule Trilobot.Buttons do
 
   defp log_pin_change(pin, value) do
     require Logger
-    pin = Map.get(@button_pins_to_button_names, pin)
+    name = Map.get(@button_pins_to_button_names, pin)
     event = if value == 0, do: :pressed, else: :released
-    Logger.info("pin #{pin} #{event}")
+    Logger.info("pin #{pin} => #{name} #{event}")
+    PropertyTable.put(@table, ["button", name], event)
   end
 end
