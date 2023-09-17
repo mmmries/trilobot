@@ -71,9 +71,11 @@ defmodule Trilobot.MixProject do
       {:nerves_system_grisp2, "~> 0.3", runtime: false, targets: :grisp2},
       {:nerves_system_mangopi_mq_pro, "~> 0.4", runtime: false, targets: :mangopi_mq_pro},
       {:circuits_gpio, "~> 1.1"},
-      {:circuits_i2c, "~> 2.0"},
+      {:circuits_i2c, "~> 2.0", override: true},
+      {:observer_cli, "~> 1.7"},
       {:pigpiox, "~> 0.1.2"},
-      {:property_table, "~> 0.2"}
+      {:property_table, "~> 0.2"},
+      {:tmf882x, "~> 0.1"}
     ]
   end
 

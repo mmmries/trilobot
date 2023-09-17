@@ -35,7 +35,8 @@ defmodule Trilobot.Application do
       {PropertyTable, name: Trilobot.ButtonTable},
       {Trilobot.Buttons, nil},
       {Trilobot.RGB, nil},
-      {Trilobot.Driver, nil}
+      {Trilobot.Driver, nil},
+      {Trilobot.Eyes, nil}
     ]
   end
 
